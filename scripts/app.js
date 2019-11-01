@@ -4,70 +4,154 @@ function setupGame() {
   const spaceSize = width ** 2
   const space = document.querySelector('.space')
   const cells = []
+  let swarm = []
   let turret = 430
-  let eT = 94
+  let eT = [94, 95]
   let baggage = ''
 
+
+  //edit functions. refactor it to change the eT array only
+
   function eTMovesLeft() {
-    return eT -= 1
+    eT = eT.map(elem => {
+      return elem - 1
+    })
+    return swarm = eT.map(elem => {
+      return cells[elem]
+    })
   }
 
 
   function eTMovesRight() {
-    return eT += 1
+    eT = eT.map(elem => {
+      return elem + 1
+    })
+    return swarm = eT.map(elem => {
+      return cells[elem]
+    })
   }
 
   function weReComing() {
-    return eT += 21
+    eT = eT.map(elem => {
+      return elem + width
+    })
+    return swarm = eT.map(elem => {
+      return cells[elem]
+    })
   }
 
   startButton.addEventListener('click', () => {
+    //change of view
     space.style.display = 'flex'
+    //initialisation of grid
     for (let i = 0; i < spaceSize; i++) {
       const cell = document.createElement('div')
       space.appendChild(cell)
       cells.push(cell)
       startButton.style.display = 'none'
     }
+    //initialisation of player
     cells[turret].classList.add('turret')
-    cells[eT].classList.add('theFirst')
-    cells[eT].classList.add('left')
+    //initial assignment of alien array numbers to div cells
+    swarm = eT.map(elem => {
+      return cells[elem]
+    })
+    //initial application of class elements to alien divs 
+    swarm.forEach(div => {
+      div.classList.add('theFirst')
+      div.classList.add('left')
+    })
+
+    console.log(swarm)
 
     //intial thoughts on the multiple class change is that it will not add the correct syntax for multiple class adds. in fact, i've already tried this 
     //without a variable name. use a  forEach
 
     /*const invasion = */ setInterval(() => {
       // cells[eT].classList.remove('theFirst')
-      if (eT % width === 0 && cells[eT].classList.contains('left')) {
-        cells[eT].classList.remove('left')
-        baggage = cells[eT].className.split(' ')
-        //array method here
-        baggage.array.forEach(classStr => {
-          cells[eT].classList.remove(`${classStr}`)
+      //end screen conditionals
+      //We're first going to get the swarm to move from side to side and then rework the conditionals on the basis that the outside will not always be an indicator of turnaround.
+      //I've had an idea for the reduction of code...a reduce function could give me a string of the class values to check, add to and remove.
+      if (eT[0] % width === 0 && swarm[0].classList.contains('left')) {
+        swarm.forEach(div => {
+          div.classList.remove('left')
         })
-        cells[eT].classList.remove(`${baggage}`)
+        swarm.forEach(div => {
+          baggage = div.className.split(' ')
+          baggage.forEach(classStr => {
+            div.classList.remove(`${classStr}`)
+          })
+        })
+        /*old code line-----------------------------------*/
+        // baggage = cells[eT].className.split(' ')
+        //array method here
+        // baggage.forEach(classStr => {
+        //   cells[eT].classList.remove(`${classStr}`)
+        // })
         // console.log('running')
+        /*old code line-----------------------------------*/
         weReComing()
-        return cells[eT].classList.add(`${baggage}`)
-      } else if ((eT - (width - 1)) % width === 0 && !cells[eT].classList.contains('left')) {
-        // console.log('running-left')
-        baggage = cells[eT].className
-        cells[eT].classList.remove(`${baggage}`)
-        weReComing()
-        cells[eT].classList.add('left')
-        return cells[eT].classList.add(`${baggage}`)
+        //should this be nested? should I just be dealing with classes here?
+        return swarm.forEach(div => {
+          baggage.forEach(classStr => {
+            div.classList.add(`${classStr}`)
+          })
+        })
+        //work on following if logic works
+        //   /*worked above line*/
+        //   // baggage.forEach(classStr => {
+        //   //   cells[eT].classList.add(`${classStr}`)
+        //   // })
+        // } else if ((eT - (width - 1)) % width === 0 && !cells[eT].classList.contains('left')) {
+        //   // console.log('running-left')
+        //   baggage = cells[eT].className.split(' ')
+        //   baggage.forEach(classStr => {
+        //     cells[eT].classList.remove(`${classStr}`)
+        //   })
+        //   weReComing()
+        //   cells[eT].classList.add('left')
+        //   return baggage.forEach(classStr => {
+        //     cells[eT].classList.add(`${classStr}`)
+        //   })
       }
-      if (cells[eT].classList.contains('left')) {
-        cells[eT].classList.remove('theFirst')
-        cells[eT].classList.remove('left')
+      console.log(swarm[0].classList.contains('left'))
+      //constant movement conditionals
+      if (swarm[0].classList.contains('left')) {
+        swarm.forEach(div => {
+          baggage = div.className.split(' ')
+          baggage.forEach(classStr => {
+            div.classList.remove(`${classStr}`)
+          })
+        })
+        //This is the old single alien code
+        // baggage = cells[eT].className.split(' ')
+        // baggage.forEach(classStr => {
+        //   cells[eT].classList.remove(`${classStr}`)
+        // })
+        //-------------------------------
+        console.log(eTMovesLeft())
         eTMovesLeft()
-        cells[eT].classList.add('left')
-      } else {
-        cells[eT].classList.remove('theFirst')
-        eTMovesRight()
-      }
-      cells[eT].classList.add('theFirst')
-      console.log(cells[eT].className)
+
+        swarm.forEach(div => {
+          baggage.forEach(classStr => {
+            div.classList.add(`${classStr}`)
+          })
+        })
+        //this is old code for single
+        // baggage.forEach(classStr => {
+        //   cells[eT].classList.add(`${classStr}`)
+        // })
+      } 
+      // else {
+      //   baggage = cells[eT].className.split(' ')
+      //   baggage.forEach(classStr => {
+      //     cells[eT].classList.remove(`${classStr}`)
+      //   })
+      //   eTMovesRight()
+      //   baggage.forEach(classStr => {
+      //     cells[eT].classList.add(`${classStr}`)
+      //   })
+      // }
     }, 500)
 
 
@@ -84,6 +168,7 @@ function setupGame() {
     // })
   })
 
+  // ==============================Movement ==============================================================
   document.onkeydown = function (e) {
     // console.log(e.keyCode)
     switch (e.keyCode) {
