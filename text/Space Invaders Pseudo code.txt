@@ -1,0 +1,72 @@
+/*
+-The game will as usual be initialised inside a function thats run when the DOM loads-
+
+The first thing we'll need to have is an initialisation action. In order to do this we'll 
+need an event listener that handles the create game sequence. Once clicked, we'd like this 
+option to be unavailable and for the grid to load.
+
+Inital research indicates that the wave should be 11 enemies long and 5 rows. In order to 
+achieve an a mvp of some sort we'd like to map each enemy to a grid square and give our player 
+enough time to attempt to score points.
+
+We'll start with a standard number and move the wave an initial 5 places. Our wave will need to
+start centered and so this equates to 11 + 5 either way. Our grid will then be 21 squares across.
+
+We'll initalise our grid along the same lines as our first grid game tutorial
+
+if we start our wave 5 lines down,
+21 squares - 5 lines = 16 rows
+16 rows- 5 enemy lines = 11 space rows
+
+then account for the player(1)
+11-1 = 10
+
+The wave will move through 10 oscillations.
+
+lets think about the creation of our wave and player on the board now.
+
+Player
+Firstly, we can keep track of our player by changing the backing image to a dark colour. Our player 
+has limited movement and cannot move along the y-axis. This means that we can forget about that action
+for the time being. Our player will move left and right by an event listener that considers the key
+press (or release) of the left and right arrow keys. When the directional buttons are used the class
+will be removed from the appropriate gridbox (using array number) and added to the next one. A 
+restriction will be placed on the array values that can be cycled through to fix the player to the
+bottom line.
+
+Aliens
+Second, we will create our wave of enemies. This will be created though applying a different colour 
+class to the grid boxes that correlate to the array of 5 lines down, 5 lines away from margin on both
+sides and 5 rows deep. The wave will exist as a class. This class will be attributed to start with and
+movement will be simulated by applying changes to the class.
+
+The wave will move on a set interval which will enable the codition for a change in equation when a class
+is entered into one of the array (gridboxes on the left/right sides) (for change of direction). Once the 
+wave reaches these boxes, an introduction of a single y-axis move will be enacted as well.
+
+Missile
+A missile can be constructed using a class attribute as well. The origin position will be linked to the
+player array number. The missile will then move along the y-axis on a set interval. A condition will be 
+set in which, if the classList includes x, then remove all classes. The else will have it continue to the
+barrier and then be removed.
+
+Scoring conditions
+Scoring conditions will be set to the condition action on the missile. 
+
+In addition, a next level or pause as
+an initial start will be attributed to no classlist of enemy present.
+
+If any enemy class reaches the player array values then game over will be alerted.
+
+
+These will be the initial conditions before return fire is created.
+
+Once this is created, a condition will be set which mimics our missile logic but changes a variable life
+once the class reaches the grid with the player class.
+
+
+
+
+
+
+*/
