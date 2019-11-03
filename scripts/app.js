@@ -4,10 +4,15 @@ function setupGame() {
   const spaceSize = width ** 2
   const space = document.querySelector('.space')
   const cells = []
+  let bang = null
   let swarm = []
   let turret = 430
-  let eT = [94, 95]
+  let eT = [92, 93, 94, 95, 96, 114, 115, 116]
   let baggage = ''
+  let missileOne = null
+  // let missileTwo = null
+  // let missileThree = null
+  let ammoCounter = 0
 
 
   //edit functions. refactor it to change the eT array only
@@ -16,27 +21,74 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem - 1
     })
+    if (gotcha(eT)) {
+      eT = eT.filter((alien) => {
+        return alien !== missileOne
+      })
+      rowZ1()
+    }
     return swarm = eT.map(elem => {
       return cells[elem]
     })
   }
-
-
+  
+  
   function eTMovesRight() {
     eT = eT.map(elem => {
       return elem + 1
     })
+    if (gotcha(eT)) {
+      eT = eT.filter((alien) => {
+        return alien !== missileOne
+      })
+      rowZ1()
+    }
+    return swarm = eT.map(elem => {
+      return cells[elem]
+    })
+  }
+  
+  function weReComing() {
+    eT = eT.map(elem => {
+      return elem + width
+    })
+    if (gotcha(eT)) {
+      eT = eT.filter((alien) => {
+        return alien !== missileOne
+      })
+      rowZ1()
+    }
     return swarm = eT.map(elem => {
       return cells[elem]
     })
   }
 
-  function weReComing() {
-    eT = eT.map(elem => {
-      return elem + width
+  function rowZ1() {
+    clearInterval(bang1)
+    cells[missileOne].classList.remove('missile')
+    missileOne = null
+    ammoCounter -= 1
+  }
+
+  // function rowZ2() {
+  //   clearInterval(bang2)
+  //   ammoCounter -= 1
+  // }
+  
+  // function rowZ3() {
+  //   clearInterval(bang3)
+  //   ammoCounter -= 1
+  // }
+
+  function gotcha(array) {
+    return array.some((ships) => {
+      return missileOne === ships
     })
-    return swarm = eT.map(elem => {
-      return cells[elem]
+  }
+
+  function shouldWeGoLeft(array) {
+    return array.some((element) => {
+      return (element - (width - 1)) % width === 0
     })
   }
 
@@ -62,7 +114,6 @@ function setupGame() {
       div.classList.add('left')
     })
 
-    console.log(swarm)
 
     //intial thoughts on the multiple class change is that it will not add the correct syntax for multiple class adds. in fact, i've already tried this 
     //without a variable name. use a  forEach
@@ -72,13 +123,16 @@ function setupGame() {
       //end screen conditionals
       //We're first going to get the swarm to move from side to side and then rework the conditionals on the basis that the outside will not always be an indicator of turnaround.
       //I've had an idea for the reduction of code...a reduce function could give me a string of the class values to check, add to and remove.
+      //functions could be useful in reworking conditionals. Consider when to refactor after missile.
       if (eT[0] % width === 0 && swarm[0].classList.contains('left')) {
-        console.log(eT[0], eT[1])
         swarm.forEach(div => {
           div.classList.remove('left')
         })
         swarm.forEach(div => {
           baggage = div.className.split(' ')
+          baggage = baggage.filter(classStr => {
+            return classStr !== 'missile'
+          })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
           })
@@ -88,16 +142,21 @@ function setupGame() {
         return swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
-            console.log(eT[0], eT[1])
           })
         })
         //work on following if logic works
         //   /*worked above line*/
-      } else if ((eT[swarm.length - 1] - (width - 1)) % width === 0 && !swarm[0].classList.contains('left')) {
-        console.log('running-left')
-        console.log(eT[0], eT[1])
+        /*
+
+        
+
+        */
+      } else if (shouldWeGoLeft(eT) && !swarm[0].classList.contains('left')) {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
+          baggage = baggage.filter(classStr => {
+            return classStr !== 'missile'
+          })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
           })
@@ -106,38 +165,38 @@ function setupGame() {
         swarm.forEach(div => {
           div.classList.add('left')
         })
-        
+
         // cells[eT].classList.add('left')
         return swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
-            console.log(eT[0], eT[1])
           })
         })
       }
-      console.log(eT[0] % width === 0)
-      // console.log(swarm[0].classList.contains('left'))
       //constant movement conditionals
       if (swarm[0].classList.contains('left')) {
-        console.log(eT[0], eT[1])
         swarm.forEach(div => {
           baggage = div.className.split(' ')
+          baggage = baggage.filter(classStr => {
+            return classStr !== 'missile'
+          })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
           })
         })
         eTMovesLeft()
-        
+
         return swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
-            console.log(eT[0], eT[1])
           })
         })
       } else {
-        console.log(eT[0], eT[1])
         swarm.forEach(div => {
           baggage = div.className.split(' ')
+          baggage = baggage.filter(classStr => {
+            return classStr !== 'missile'
+          })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
           })
@@ -146,15 +205,13 @@ function setupGame() {
         swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
-            console.log(eT[0], eT[1])
           })
         })
       }
     }, 600)
 
 
-    /*baggage = cells[eT].className
-    cells[eT].className = `$baggage`*/
+
 
 
     //this is an array example with an event listener
@@ -168,7 +225,6 @@ function setupGame() {
 
   // ==============================Movement ==============================================================
   document.onkeydown = function (e) {
-    // console.log(e.keyCode)
     switch (e.keyCode) {
       case (37):
       case (65): {
@@ -193,6 +249,77 @@ function setupGame() {
         turret = turret + 1
         cells[turret].classList.add('turret')
         console.log(turret)
+        break
+      }
+      //set up missile here
+
+      /*
+    Let's get one to fire first
+    Event Listener
+    let missile = turret + 1
+    then set interval
+    set 'set interval' to a variable
+    missile += width
+    write conditionals
+    first basic condition
+    if missile is < 20 then cease interval
+    */
+
+      case (32): {
+        console.log(ammoCounter)
+        //make sure you change all names as we go. also change the interval names. also add way to reduce ammo counter (reduce by one)
+        if (ammoCounter === 0) {
+          ammoCounter += 1
+          missileOne = turret - width
+          cells[missileOne].classList.add('missile')
+          bang1 = setInterval(() => {
+            console.log(missileOne)
+            cells[missileOne].classList.remove('missile')
+            missileOne = missileOne - width
+            //new code to evaluate (simulating hit)
+            if (gotcha(eT)) {
+              eT = eT.filter((alien) => {
+                return alien !== missileOne
+              })
+              cells[missileOne].classList.remove('missile')
+              // cells[missileOne].classList.remove('theFirst')
+              return rowZ1()
+            }
+            cells[missileOne].classList.add('missile')
+            if (missileOne < width) {
+              rowZ1()
+            }
+          }, 200)
+        //This following code will be useful for return fire. However for now it is not relevant as player shoots once
+        // } else if (ammoCounter === 1) {
+        //   ammoCounter += 1
+        //   missileTwo = turret - width
+        //   cells[missileTwo].classList.add('missile')
+        //   bang2 = setInterval(() => {
+        //     console.log(missileTwo)
+        //     cells[missileTwo].classList.remove('missile')
+        //     missileTwo = missileTwo - width
+        //     cells[missileTwo].classList.add('missile')
+        //     if (missileTwo < width) {
+        //       cells[missileTwo].classList.remove('missile')
+        //       rowZ2()
+        //     }
+        //   }, 200)
+        // } else if (ammoCounter === 2) {
+        //   ammoCounter += 1
+        //   missileThree = turret - width
+        //   cells[missileThree].classList.add('missile')
+        //   bang3 = setInterval(() => {
+        //     console.log(missileThree)
+        //     cells[missileThree].classList.remove('missile')
+        //     missileThree = missileThree - width
+        //     cells[missileThree].classList.add('missile')
+        //     if (missileThree < width) {
+        //       cells[missileThree].classList.remove('missile')
+        //       rowZ3()
+        //     }
+        //   }, 200)
+        } else return
         break
       }
       /*Eliminate this code when you're finished with the mapping of items on the board*/
@@ -221,67 +348,6 @@ function setupGame() {
       /*Eliminate this code when you're finished with the mapping of items on the board*/
     }
   }
-
-
-  // const width = 10
-  // const gridSize = width ** 2
-  // const grid = document.querySelector('.grid')
-  // const cells = []
-  // let player = 5
-
-  // for (let i = 0; i < gridSize; i++) {
-  //   const cell = document.createElement('div')
-  //   grid.appendChild(cell)
-  //   cell.addEventListener('click', () => {
-  //     cell.classList.toggle('player')
-  //   })
-  //   cells.push(cell)
-  // }
-
-  // cells[player].classList.add('player')
-
-  // document.addEventListener('keyup', (e) => {
-  //   switch (e.key) {
-  //     case 'w': {
-  //       if (player < width) {
-  //         return
-  //       }
-  //       cells[player].classList.remove('player')
-  //       player = player - width
-  //       cells[player].classList.add('player')
-  //       break
-  //     }
-  //     case 's': {
-  //       if (player > ((gridSize) - width - 1)) {
-  //         return
-  //       }
-  //       cells[player].classList.remove('player')
-  //       player = player + width
-  //       cells[player].classList.add('player')
-  //       console.log(player)
-  //       break
-  //     }
-  //     case 'a': {
-  //       if (player === 0) {
-  //         return
-  //       }
-  //       cells[player].classList.remove('player')
-  //       player = player - 1
-  //       cells[player].classList.add('player')
-  //       break
-  //     }
-  //     case 'd': {
-  //       if (player === ((gridSize) - 1)) {
-  //         return
-  //       }
-  //       cells[player].classList.remove('player')
-  //       player = player + 1
-  //       cells[player].classList.add('player')
-  //       break
-  //     }
-  //   }
-
-  // })
 
 }
 
