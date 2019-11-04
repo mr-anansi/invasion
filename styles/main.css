@@ -36,6 +36,14 @@ button {
   width: 4.761904%;
 }
 
+#scorecard {
+  display: none
+}
+
+#lives {
+  display: none
+}
+
 .turret {
   background-color: black;
 }
@@ -46,4 +54,8 @@ button {
 
 .missile {
   background-color: red;
+}
+
+.laser {
+  background-color: blue;
 }
