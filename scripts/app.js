@@ -14,7 +14,7 @@ function setupGame() {
   let skyBarrage = null
   let swarm = []
   let turret = 430
-  let eT = [92, 93, 94, 95, 96, 113, 114, 115, 116, 117]
+  let eT = [89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 111, 112, 113, 114, 115, 116, 117, 118, 119, 133, 134, 135, 136, 137, 138, 139, 155, 156, 157, 158, 159, 177, 178, 179]
   const theresALotOfEm = eT.length
   let baggage = ''
   let missileOne = null
@@ -27,7 +27,7 @@ function setupGame() {
   let score = 0
   let frontline = null
   let enemyFire = null
-  let enemyAmmo = [1, 2, 3]
+  const enemyAmmo = [1, 2, 3]
   let life = 3
 
 
@@ -55,10 +55,10 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem - 1
     })
-    if (gotcha(eT)) {
-      amIHit()
-      rowZ1()
-    }
+    // if (gotcha(eT)) {
+    //   cells[missileOne].classList.remove('theFirst')
+    //   amIHit()
+    // }
     return swarm = eT.map(elem => {
       return cells[elem]
     })
@@ -69,10 +69,10 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem + 1
     })
-    if (gotcha(eT)) {
-      amIHit()
-      rowZ1()
-    }
+    // if (gotcha(eT)) {
+    //   cells[missileOne].classList.remove('theFirst')
+    //   amIHit()
+    // }
     return swarm = eT.map(elem => {
       return cells[elem]
     })
@@ -82,10 +82,10 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem + width
     })
-    if (gotcha(eT)) {
-      amIHit()
-      rowZ1()
-    }
+    // if (gotcha(eT)) {
+    //   cells[missileOne].classList.remove('theFirst')
+    //   amIHit()
+    // }
     if (imTheCaptainNow(eT)) {
       clearInterval(invasion)
       clearInterval(bang1)
@@ -98,30 +98,63 @@ function setupGame() {
 
   function rowZ1() {
     clearInterval(bang1)
-    cells[missileOne].classList.remove('missile')
-    missileOne = null
-    ammoCounter -= 1
+    setTimeout(() => {
+      cells[missileOne].classList.remove('missile')
+      missileOne = null
+      ammoCounter -= 1
+    }, 100)
+
   }
 
   function potShot() {
     clearInterval(shell1)
-    cells[laserOne].classList.remove('laser')
-    laserOne = null
-    enemyAmmo.push(1)
+    if (laserOne === turret) {
+      setTimeout(() => {
+        cells[laserOne].classList.remove('explosion')
+        laserOne = null
+        enemyAmmo.push(1)
+      }, 800)
+    } else {
+      setTimeout(() => {
+        cells[laserOne].classList.remove('laser')
+        laserOne = null
+        enemyAmmo.push(1)
+      }, 100)
+    }
   }
 
   function potShot2() {
     clearInterval(shell2)
-    cells[laserTwo].classList.remove('laser')
-    laserTwo = null
-    enemyAmmo.push(2)
+    if (laserTwo === turret) {
+      setTimeout(() => {
+        cells[laserTwo].classList.remove('explosion')
+        laserTwo = null
+        enemyAmmo.push(2)
+      }, 800)
+    } else {
+      setTimeout(() => {
+        cells[laserTwo].classList.remove('laser')
+        laserTwo = null
+        enemyAmmo.push(2)
+      }, 100)
+    }
   }
 
   function potShot3() {
     clearInterval(shell3)
-    cells[laserThree].classList.remove('laser')
-    laserThree = null
-    enemyAmmo.push(3)
+    if (laserThree === turret) {
+      setTimeout(() => {
+        cells[laserThree].classList.remove('explosion')
+        laserThree = null
+        enemyAmmo.push(3)
+      }, 800)
+    } else {
+      setTimeout(() => {
+        cells[laserThree].classList.remove('laser')
+        laserThree = null
+        enemyAmmo.push(3)
+      }, 100)
+    }
   }
   // function rowZ2() {
   //   clearInterval(bang2)
@@ -141,31 +174,66 @@ function setupGame() {
 
   //scoring features
 
+  function weReOutOfHere() {
+    if (cells[laserThree]) {
+      cells[laserThree].classList.remove('laser')
+    }
+    if (cells[laserTwo]) {
+      cells[laserTwo].classList.remove('laser')
+    }
+    if (cells[laserOne]) {
+      cells[laserOne].classList.remove('laser')
+    }
+    if (eT) {
+      swarm.forEach(div => {
+        div.classList.remove('theFirst')
+      })
+    }
+    if (cells[missileOne]) {
+      cells[missileOne].classList.remove('missile')
+    }
+  }
+
   function amIHit() {
     eT = eT.filter((alien) => {
       return alien !== missileOne
     })
     score = scoreBoard()
     if (eT.length === 0) {
+      cells[missileOne].classList.remove('explosion')
+      scoreElement.innerHTML = `Score : ${score}`
+      gunTurrets.innerHTML = `Lives : ${life}`
       clearInterval(invasion)
       clearInterval(bang1)
       clearInterval(shell1)
       clearInterval(shell2)
       clearInterval(shell3)
       clearInterval(skyBarrage)
+      weReOutOfHere()
       alert(`You got 'em! Game Over!\n Your score is ${score}`)
+    } else {
+      clearInterval(bang1)
+      setTimeout(() => {
+        console.log(missileOne)
+        cells[missileOne].classList.remove('explosion')
+        missileOne = null
+        ammoCounter -= 1
+      }, 500)
     }
   }
 
   function tooSlow() {
     life -= 1
     if (life === 0) {
+      scoreElement.innerHTML = `Score : ${score}`
+      gunTurrets.innerHTML = `Lives : ${life}`
       clearInterval(invasion)
       clearInterval(bang1)
       clearInterval(shell1)
       clearInterval(shell2)
       clearInterval(shell3)
       clearInterval(skyBarrage)
+      weReOutOfHere()
       alert(`Our guns are done!\n Your score is ${score}`)
     }
   }
@@ -237,7 +305,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -261,7 +329,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -284,7 +352,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -301,7 +369,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -315,24 +383,24 @@ function setupGame() {
         })
       }
 
-    }, 400)
+    }, 800)
 
     //I'm currently building out a method for return fire using a randomiser from the bottom row of the swarm. Finish work on this tomorrow morning.
     //separate these concerns out. There is already a set interval running that can change your values.
     skyBarrage = setInterval(() => {
       enemyFire = spaceGunners(eT)
-      console.log(enemyFire)
+      // console.log(enemyFire)
       if (enemyAmmo[0] === 1) {
         enemyAmmo.splice(0, 1)
         laserOne = enemyFire + width
-        console.log(laserOne)
+        // console.log(laserOne)
         cells[laserOne].classList.add('laser')
         shell1 = setInterval(() => {
           cells[laserOne].classList.remove('laser')
           laserOne = laserOne + width
           //new code to evaluate (simulating hit)
           if (laserOne === turret) {
-            cells[laserOne].classList.remove('laser')
+            cells[laserOne].classList.add('explosion')
             tooSlow()
             // eT = eT.filter((alien) => {
             //   return alien !== missileOne
@@ -350,14 +418,14 @@ function setupGame() {
       } else if (enemyAmmo[0] === 2) {
         enemyAmmo.splice(0, 1)
         laserTwo = enemyFire + width
-        console.log(laserTwo)
+        // console.log(laserTwo)
         cells[laserTwo].classList.add('laser')
         shell2 = setInterval(() => {
           cells[laserTwo].classList.remove('laser')
           laserTwo = laserTwo + width
           //new code to evaluate (simulating hit)
           if (laserTwo === turret) {
-            cells[laserTwo].classList.remove('laser')
+            cells[laserTwo].classList.add('explosion')
             tooSlow()
             // eT = eT.filter((alien) => {
             //   return alien !== missileOne
@@ -374,14 +442,14 @@ function setupGame() {
       } else if (enemyAmmo[0] === 3) {
         enemyAmmo.splice(0, 1)
         laserThree = enemyFire + width
-        console.log(laserThree)
+        // console.log(laserThree)
         cells[laserThree].classList.add('laser')
         shell3 = setInterval(() => {
           cells[laserThree].classList.remove('laser')
           laserThree = laserThree + width
           //new code to evaluate (simulating hit)
           if (laserThree === turret) {
-            cells[laserThree].classList.remove('laser')
+            cells[laserThree].classList.add('explosion')
             tooSlow()
             // eT = eT.filter((alien) => {
             //   return alien !== missileOne
@@ -396,7 +464,7 @@ function setupGame() {
           }
         }, 200)
       } else return
-    }, 600)
+    }, 1000)
 
 
 
@@ -416,25 +484,25 @@ function setupGame() {
         case (65): {
           if (turret === ((width ** 2) - width)) {
             // console.log(e.keyCode)
-            console.log(turret)
+            // console.log(turret)
             return
           }
           cells[turret].classList.remove('turret')
           turret = turret - 1
           cells[turret].classList.add('turret')
-          console.log(turret)
+          // console.log(turret)
           break
         }
         case (68):
         case (39): {
           if (turret === ((spaceSize) - 1)) {
-            console.log(turret)
+            // console.log(turret)
             return
           }
           cells[turret].classList.remove('turret')
           turret = turret + 1
           cells[turret].classList.add('turret')
-          console.log(turret)
+          // console.log(turret)
           break
         }
         //set up missile here
@@ -462,19 +530,20 @@ function setupGame() {
               missileOne = missileOne - width
               //new code to evaluate (simulating hit)
               if (gotcha(eT)) {
-                amIHit()
+                cells[missileOne].classList.add('explosion')
+                console.log(missileOne)
+                return amIHit()
                 // eT = eT.filter((alien) => {
                 //   return alien !== missileOne
                 // })
-                cells[missileOne].classList.remove('missile')
+                // cells[missileOne].classList.remove('missile')
                 // cells[missileOne].classList.remove('theFirst')
-                return rowZ1()
               }
               cells[missileOne].classList.add('missile')
               if (missileOne < width) {
                 rowZ1()
               }
-            }, 200)
+            }, 80)
             //This following code will be useful for return fire. However for now it is not relevant as player shoots once
             // } else if (ammoCounter === 1) {
             //   ammoCounter += 1
@@ -510,24 +579,24 @@ function setupGame() {
         /*Eliminate this code when you're finished with the mapping of items on the board*/
         case (38): {
           if (turret < width) {
-            console.log(turret)
+            // console.log(turret)
             return
           }
           cells[turret].classList.remove('turret')
           turret = turret - width
           cells[turret].classList.add('turret')
-          console.log(turret)
+          // console.log(turret)
           break
         }
         case (40): {
           if (turret > ((spaceSize) - width - 1)) {
-            console.log(turret)
+            // console.log(turret)
             return
           }
           cells[turret].classList.remove('turret')
           turret = turret + width
           cells[turret].classList.add('turret')
-          console.log(turret)
+          // console.log(turret)
           break
         }
         /*Eliminate this code when you're finished with the mapping of items on the board*/
@@ -542,75 +611,3 @@ function setupGame() {
 
 document.addEventListener('DOMContentLoaded', setupGame)
 
-/*
--The game will as usual be initialised inside a function thats run when the DOM loads-
-
-The first thing we'll need to have is an initialisation action. In order to do this we'll
-need an event listener that handles the create game sequence. Once clicked, we'd like this
-option to be unavailable and for the grid to load.
-
-Inital research indicates that the wave should be 11 enemies long and 5 rows. In order to
-achieve an a mvp of some sort we'd like to map each enemy to a grid square and give our player
-enough time to attempt to score points.
-
-We'll start with a standard number and move the wave an initial 5 places. Our wave will need to
-start centered and so this equates to 11 + 5 either way. Our grid will then be 21 squares across.
-
-We'll initalise our grid along the same lines as our first grid game tutorial
-
-if we start our wave 5 lines down,
-21 squares - 5 lines = 16 rows
-16 rows- 5 enemy lines = 11 space rows
-
-then account for the player(1)
-11-1 = 10
-
-The wave will move through 10 oscillations.
-
-lets think about the creation of our wave and player on the board now.
-
-Player
-Firstly, we can keep track of our player by changing the backing image to a dark colour. Our player
-has limited movement and cannot move along the y-axis. This means that we can forget about that action
-for the time being. Our player will move left and right by an event listener that considers the key
-press (or release) of the left and right arrow keys. When the directional buttons are used the class
-will be removed from the appropriate gridbox (using array number) and added to the next one. A
-restriction will be placed on the array values that can be cycled through to fix the player to the
-bottom line.
-
-Aliens
-Second, we will create our wave of enemies. This will be created though applying a different colour
-class to the grid boxes that correlate to the array of 5 lines down, 5 lines away from margin on both
-sides and 5 rows deep. The wave will exist as a class. This class will be attributed to start with and
-movement will be simulated by applying changes to the class.
-
-The wave will move on a set interval which will enable the codition for a change in equation when a class
-is entered into one of the array (gridboxes on the left/right sides) (for change of direction). Once the
-wave reaches these boxes, an introduction of a single y-axis move will be enacted as well.
-
-Missile
-A missile can be constructed using a class attribute as well. The origin position will be linked to the
-player array number. The missile will then move along the y-axis on a set interval. A condition will be
-set in which, if the classList includes x, then remove all classes. The else will have it continue to the
-barrier and then be removed.
-
-Scoring conditions
-Scoring conditions will be set to the condition action on the missile.
-
-In addition, a next level or pause as
-an initial start will be attributed to no classlist of enemy present.
-
-If any enemy class reaches the player array values then game over will be alerted.
-
-
-These will be the initial conditions before return fire is created.
-
-Once this is created, a condition will be set which mimics our missile logic but changes a variable life
-once the class reaches the grid with the player class.
-
-
-
-
-
-
-*/

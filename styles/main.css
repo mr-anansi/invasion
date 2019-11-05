@@ -23,14 +23,15 @@ button {
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
-  max-height: 85%;
-  max-width: 85%;
-  /* max-height: 600px;
-  max-width: 600px; */
+  max-height: 100vh;
+  max-width: 100vh;
+  background-image: url('../images/animated-stars-background-gif-8.gif');
+  background-position: center;
+  background-size: cover;
+  
 }
 
 .space div {
-  border: 1px solid lightgrey;
   flex-grow: 1;
   height: 4.761904%;
   width: 4.761904%;
@@ -45,17 +46,35 @@ button {
 }
 
 .turret {
-  background-color: black;
+  background-image: url('../images/spaceship-sprite-png-transparent.png');
+  background-position: center;
+  background-size: 100%;
 }
 
 .theFirst {
-  background-color: chartreuse;
+  background-image: url('../images/hiclipart.com-id_ilkxh.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
 }
 
 .missile {
-  background-color: red;
+  background-image: url('../images/blue-flame-gif-transparent-2.gif');
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 .laser {
-  background-color: blue;
+  background-image: url('../images/fireball-gif-transparent.gif');
+  /* background-repeat: no-repeat; */
+  background-position: center;
+  background-size: 100%;
+}
+
+.explosion {
+  background-image: url('../images/Big\ hit\ explosion.gif');
+  /* background-repeat: no-repeat; */
+  background-position: center;
+  background-size: 100%;
 }
