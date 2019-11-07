@@ -13,6 +13,9 @@ body {
 button {
   font-size: 18px;
   padding: 10px;
+  background-color: green;
+  /* position: absolute;
+  z-index: 1; */
 }
 
 .space {
@@ -25,7 +28,7 @@ button {
   justify-content: center;
   max-height: 100vh;
   max-width: 100vh;
-  background-image: url('../images/animated-stars-background-gif-8.gif');
+  background-image: url('../images/gif\ space\ galaxy.gif');
   background-position: center;
   background-size: cover;
   
@@ -59,9 +62,9 @@ button {
 }
 
 .missile {
-  background-image: url('../images/blue-flame-gif-transparent-2.gif');
+  background-image: url('../images/pulsating\ laser\ purple.gif');
   background-position: center;
-  background-size: 100%;
+  background-size: 180%;
   background-repeat: no-repeat;
 }
 
@@ -78,3 +81,25 @@ button {
   background-position: center;
   background-size: 100%;
 }
+
+.implosion {
+  background-image: url('../images/test\ implosion.gif');
+  /* background-repeat: no-repeat; */
+  background-position: center;
+  background-size: 100%;
+}
+
+.flash {
+	-webkit-animation: flash linear 0.2s infinite;
+	animation: flash linear 0.2s infinite;
+}
+@-webkit-keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+}
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+} 

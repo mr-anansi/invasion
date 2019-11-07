@@ -29,6 +29,8 @@ function setupGame() {
   let enemyFire = null
   const enemyAmmo = [1, 2, 3]
   let life = 3
+  let noLuck = 0
+  let gameOver = false
 
 
 
@@ -55,10 +57,10 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem - 1
     })
-    // if (gotcha(eT)) {
-    //   cells[missileOne].classList.remove('theFirst')
-    //   amIHit()
-    // }
+    if (gotcha(eT)) {
+      cells[missileOne].classList.remove('theFirst')
+      // amIHit()
+    }
     return swarm = eT.map(elem => {
       return cells[elem]
     })
@@ -69,10 +71,10 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem + 1
     })
-    // if (gotcha(eT)) {
-    //   cells[missileOne].classList.remove('theFirst')
-    //   amIHit()
-    // }
+    if (gotcha(eT)) {
+      cells[missileOne].classList.remove('theFirst')
+      // amIHit()
+    }
     return swarm = eT.map(elem => {
       return cells[elem]
     })
@@ -82,10 +84,10 @@ function setupGame() {
     eT = eT.map(elem => {
       return elem + width
     })
-    // if (gotcha(eT)) {
-    //   cells[missileOne].classList.remove('theFirst')
-    //   amIHit()
-    // }
+    if (gotcha(eT)) {
+      cells[missileOne].classList.remove('theFirst')
+      // amIHit()
+    }
     if (imTheCaptainNow(eT)) {
       clearInterval(invasion)
       clearInterval(bang1)
@@ -110,7 +112,7 @@ function setupGame() {
     clearInterval(shell1)
     if (laserOne === turret) {
       setTimeout(() => {
-        cells[laserOne].classList.remove('explosion')
+        // cells[laserOne].classList.remove('explosion')
         laserOne = null
         enemyAmmo.push(1)
       }, 800)
@@ -127,7 +129,7 @@ function setupGame() {
     clearInterval(shell2)
     if (laserTwo === turret) {
       setTimeout(() => {
-        cells[laserTwo].classList.remove('explosion')
+        // cells[laserTwo].classList.remove('explosion')
         laserTwo = null
         enemyAmmo.push(2)
       }, 800)
@@ -144,7 +146,7 @@ function setupGame() {
     clearInterval(shell3)
     if (laserThree === turret) {
       setTimeout(() => {
-        cells[laserThree].classList.remove('explosion')
+        // cells[laserThree].classList.remove('explosion')
         laserThree = null
         enemyAmmo.push(3)
       }, 800)
@@ -200,7 +202,8 @@ function setupGame() {
     })
     score = scoreBoard()
     if (eT.length === 0) {
-      cells[missileOne].classList.remove('explosion')
+      gameOver = true
+      cells[missileOne].classList.remove('implosion')
       scoreElement.innerHTML = `Score : ${score}`
       gunTurrets.innerHTML = `Lives : ${life}`
       clearInterval(invasion)
@@ -215,16 +218,34 @@ function setupGame() {
       clearInterval(bang1)
       setTimeout(() => {
         console.log(missileOne)
-        cells[missileOne].classList.remove('explosion')
+        cells[missileOne].classList.remove('implosion')
         missileOne = null
         ammoCounter -= 1
-      }, 500)
+      }, 1000)
     }
   }
 
+
+  function hamstrung() {
+    setTimeout(() => {
+      cells[turret].classList.remove('explosion')
+      cells[turret].classList.add('flash')
+    }, 500)
+    setTimeout(() => {
+      noLuck -= 1
+      cells[turret].classList.remove('flash')
+    }, 1500)
+  }
+
   function tooSlow() {
-    life -= 1
+    if (noLuck === 0) {
+      noLuck += 1
+      life -= 1
+      hamstrung()
+      // cells[turret].classList.remove('explosion')
+    } else if (life > 0) return
     if (life === 0) {
+      gameOver = true
       scoreElement.innerHTML = `Score : ${score}`
       gunTurrets.innerHTML = `Lives : ${life}`
       clearInterval(invasion)
@@ -305,7 +326,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'implosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -329,7 +350,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'implosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -352,7 +373,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'implosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -369,7 +390,7 @@ function setupGame() {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
           baggage = baggage.filter(classStr => {
-            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'explosion'
+            return classStr !== 'missile' && classStr !== 'laser' && classStr !== 'implosion'
           })
           baggage.forEach(classStr => {
             div.classList.remove(`${classStr}`)
@@ -408,6 +429,8 @@ function setupGame() {
             // cells[missileOne].classList.remove('missile') I've moved this line higher to test
             // cells[missileOne].classList.remove('theFirst')
             return potShot()
+          // } else if (laserOne === missileOne) {
+          //   return potShot()
           }
           cells[laserOne].classList.add('laser')
           if (laserOne >= ((width ** 2) - width)) {
@@ -433,12 +456,14 @@ function setupGame() {
             // cells[missileOne].classList.remove('missile') I've moved this line higher to test
             // cells[missileOne].classList.remove('theFirst')
             return potShot2()
+          // } else if (laserTwo === missileOne) {
+          //   return potShot2()
           }
           cells[laserTwo].classList.add('laser')
           if (laserTwo >= ((width ** 2) - width)) {
             potShot2()
           }
-        }, 200)
+        }, 80)
       } else if (enemyAmmo[0] === 3) {
         enemyAmmo.splice(0, 1)
         laserThree = enemyFire + width
@@ -457,6 +482,8 @@ function setupGame() {
             // cells[missileOne].classList.remove('missile') I've moved this line higher to test
             // cells[missileOne].classList.remove('theFirst')
             return potShot3()
+          // } else if (laserThree === missileOne) {
+          //   return potShot3()
           }
           cells[laserThree].classList.add('laser')
           if (laserThree >= ((width ** 2) - width)) {
@@ -479,128 +506,130 @@ function setupGame() {
 
     // ==============================Movement ==============================================================
     document.onkeydown = function (e) {
-      switch (e.keyCode) {
-        case (37):
-        case (65): {
-          if (turret === ((width ** 2) - width)) {
-            // console.log(e.keyCode)
+      if (noLuck === 0 && gameOver === false) {
+        switch (e.keyCode) {
+          case (37):
+          case (65): {
+            if (turret === ((width ** 2) - width)) {
+              // console.log(e.keyCode)
+              // console.log(turret)
+              return
+            }
+            cells[turret].classList.remove('turret')
+            turret = turret - 1
+            cells[turret].classList.add('turret')
             // console.log(turret)
-            return
+            break
           }
-          cells[turret].classList.remove('turret')
-          turret = turret - 1
-          cells[turret].classList.add('turret')
-          // console.log(turret)
-          break
-        }
-        case (68):
-        case (39): {
-          if (turret === ((spaceSize) - 1)) {
+          case (68):
+          case (39): {
+            if (turret === ((spaceSize) - 1)) {
+              // console.log(turret)
+              return
+            }
+            cells[turret].classList.remove('turret')
+            turret = turret + 1
+            cells[turret].classList.add('turret')
             // console.log(turret)
-            return
+            break
           }
-          cells[turret].classList.remove('turret')
-          turret = turret + 1
-          cells[turret].classList.add('turret')
-          // console.log(turret)
-          break
-        }
-        //set up missile here
+          //set up missile here
 
-        /*
-      Let's get one to fire first
-      Event Listener
-      let missile = turret + 1
-      then set interval
-      set 'set interval' to a variable
-      missile += width
-      write conditionals
-      first basic condition
-      if missile is < 20 then cease interval
-      */
+          /*
+        Let's get one to fire first
+        Event Listener
+        let missile = turret + 1
+        then set interval
+        set 'set interval' to a variable
+        missile += width
+        write conditionals
+        first basic condition
+        if missile is < 20 then cease interval
+        */
 
-        case (32): {
-          //make sure you change all names as we go. also change the interval names. also add way to reduce ammo counter (reduce by one)
-          if (ammoCounter === 0) {
-            ammoCounter += 1
-            missileOne = turret - width
-            cells[missileOne].classList.add('missile')
-            bang1 = setInterval(() => {
-              cells[missileOne].classList.remove('missile')
-              missileOne = missileOne - width
-              //new code to evaluate (simulating hit)
-              if (gotcha(eT)) {
-                cells[missileOne].classList.add('explosion')
-                console.log(missileOne)
-                return amIHit()
-                // eT = eT.filter((alien) => {
-                //   return alien !== missileOne
-                // })
-                // cells[missileOne].classList.remove('missile')
-                // cells[missileOne].classList.remove('theFirst')
-              }
+          case (32): {
+            //make sure you change all names as we go. also change the interval names. also add way to reduce ammo counter (reduce by one)
+            if (ammoCounter === 0) {
+              ammoCounter += 1
+              missileOne = turret - width
               cells[missileOne].classList.add('missile')
-              if (missileOne < width) {
-                rowZ1()
-              }
-            }, 80)
-            //This following code will be useful for return fire. However for now it is not relevant as player shoots once
-            // } else if (ammoCounter === 1) {
-            //   ammoCounter += 1
-            //   missileTwo = turret - width
-            //   cells[missileTwo].classList.add('missile')
-            //   bang2 = setInterval(() => {
-            //     console.log(missileTwo)
-            //     cells[missileTwo].classList.remove('missile')
-            //     missileTwo = missileTwo - width
-            //     cells[missileTwo].classList.add('missile')
-            //     if (missileTwo < width) {
-            //       cells[missileTwo].classList.remove('missile')
-            //       rowZ2()
-            //     }
-            //   }, 200)
-            // } else if (ammoCounter === 2) {
-            //   ammoCounter += 1
-            //   missileThree = turret - width
-            //   cells[missileThree].classList.add('missile')
-            //   bang3 = setInterval(() => {
-            //     console.log(missileThree)
-            //     cells[missileThree].classList.remove('missile')
-            //     missileThree = missileThree - width
-            //     cells[missileThree].classList.add('missile')
-            //     if (missileThree < width) {
-            //       cells[missileThree].classList.remove('missile')
-            //       rowZ3()
-            //     }
-            //   }, 200)
-          } else return
-          break
-        }
-        /*Eliminate this code when you're finished with the mapping of items on the board*/
-        case (38): {
-          if (turret < width) {
-            // console.log(turret)
-            return
+              bang1 = setInterval(() => {
+                cells[missileOne].classList.remove('missile')
+                missileOne = missileOne - width
+                //new code to evaluate (simulating hit)
+                if (gotcha(eT)) {
+                  cells[missileOne].classList.add('implosion')
+                  console.log(missileOne)
+                  return amIHit()
+                  // eT = eT.filter((alien) => {
+                  //   return alien !== missileOne
+                  // })
+                  // cells[missileOne].classList.remove('missile')
+                  // cells[missileOne].classList.remove('theFirst')
+                }
+                cells[missileOne].classList.add('missile')
+                if (missileOne < width) {
+                  rowZ1()
+                }
+              }, 80)
+              //This following code will be useful for return fire. However for now it is not relevant as player shoots once
+              // } else if (ammoCounter === 1) {
+              //   ammoCounter += 1
+              //   missileTwo = turret - width
+              //   cells[missileTwo].classList.add('missile')
+              //   bang2 = setInterval(() => {
+              //     console.log(missileTwo)
+              //     cells[missileTwo].classList.remove('missile')
+              //     missileTwo = missileTwo - width
+              //     cells[missileTwo].classList.add('missile')
+              //     if (missileTwo < width) {
+              //       cells[missileTwo].classList.remove('missile')
+              //       rowZ2()
+              //     }
+              //   }, 200)
+              // } else if (ammoCounter === 2) {
+              //   ammoCounter += 1
+              //   missileThree = turret - width
+              //   cells[missileThree].classList.add('missile')
+              //   bang3 = setInterval(() => {
+              //     console.log(missileThree)
+              //     cells[missileThree].classList.remove('missile')
+              //     missileThree = missileThree - width
+              //     cells[missileThree].classList.add('missile')
+              //     if (missileThree < width) {
+              //       cells[missileThree].classList.remove('missile')
+              //       rowZ3()
+              //     }
+              //   }, 200)
+            } else return
+            break
           }
-          cells[turret].classList.remove('turret')
-          turret = turret - width
-          cells[turret].classList.add('turret')
-          // console.log(turret)
-          break
-        }
-        case (40): {
-          if (turret > ((spaceSize) - width - 1)) {
+          /*Eliminate this code when you're finished with the mapping of items on the board*/
+          case (38): {
+            if (turret < width) {
+              // console.log(turret)
+              return
+            }
+            cells[turret].classList.remove('turret')
+            turret = turret - width
+            cells[turret].classList.add('turret')
             // console.log(turret)
-            return
+            break
           }
-          cells[turret].classList.remove('turret')
-          turret = turret + width
-          cells[turret].classList.add('turret')
-          // console.log(turret)
-          break
+          case (40): {
+            if (turret > ((spaceSize) - width - 1)) {
+              // console.log(turret)
+              return
+            }
+            cells[turret].classList.remove('turret')
+            turret = turret + width
+            cells[turret].classList.add('turret')
+            // console.log(turret)
+            break
+          }
+          /*Eliminate this code when you're finished with the mapping of items on the board*/
         }
-        /*Eliminate this code when you're finished with the mapping of items on the board*/
-      }
+      } else return
     }
 
   })
