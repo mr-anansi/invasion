@@ -5,16 +5,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link
+    href="https://fonts.googleapis.com/css?family=Anton|Bowlby+One+SC|Heebo|Josefin+Sans|Lobster|Teko|Yanone+Kaffeesatz|Bangers|Sigmar+One|Wallpoet&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css">
   <script src="scripts/app.js"></script>
-  <title>Under Construction: Space Invaders</title>
+  <title>Invasion</title>
 </head>
 
 <body>
-  <section class="start">
-    <div class="title-hero">
-      <!-- <img src="images/nightmare test image.jpg" alt="nightmare-before-christmas"> -->
-      <button id="start-button">Test</button>
+  <section class="title-hero">
+    <div class="inspired">Inspired by <img src="images/spaceinvaderslogo-space-invaders-logo-777x336.png"
+        alt="space invaders logo" height="50px" width="120px"></div>
+    <h1 class="fade-in">Invasion!!</h1>
+    <div class="enter-game game-flash">Press any key to continue...</div>
+  </section>
+  <section class="high-scores">
+    <h2>High Scores</h2>
+    <div class="top-gunners"></div>
+    <button id="new-game">New Game</button>
+  </section>
+  <section class="setting-up">
+    <h3>Enter Your Name</h3>
+    <input type="text" name="username" id="usernameField">
+    <button id="open">Instructions</button>
+    <button id="start-button">Begin</button>
+    <div class="instructions">
+      <img src="images/WASD (1).png" alt="game keys" height="50px" width="150px">
+      <button id="close">Close</button>
     </div>
   </section>
   <section class="score">

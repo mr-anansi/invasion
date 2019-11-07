@@ -2,6 +2,18 @@ function setupGame() {
   const startButton = document.getElementById('start-button')
   const scoreElement = document.getElementById('scorecard')
   const gunTurrets = document.getElementById('lives')
+  const heroPanel = document.querySelector('.title-hero')
+  const playerLounge = document.querySelector('.high-scores')
+  const begin = document.getElementById('new-game')
+  const readInstructions = document.getElementById('open')
+  const nameScreen = document.querySelector('.setting-up')
+  const instructionsPanel = document.querySelector('.instructions')
+
+  // hero to display none
+  // inspired
+  // h1
+
+
   const width = 21
   const spaceSize = width ** 2
   const space = document.querySelector('.space')
@@ -31,7 +43,7 @@ function setupGame() {
   let life = 3
   let noLuck = 0
   let gameOver = false
-
+  let gameLoad = false
 
 
   //edit functions. refactor it to change the eT array only
@@ -281,11 +293,41 @@ function setupGame() {
     })
   }
 
+  function areYouReady() {
+    // pressEnter.style.display = 'none'
+    heroPanel.style.display = 'none'
+    playerLounge.style.display = 'flex'
+    begin.style.display = 'initial'
+
+    // hero to display none
+    // inspired
+    // h1
+    // enter game
+  }
+
+
+  document.addEventListener('keydown', (e) => {
+    if (gameLoad === false) {
+      gameLoad = true
+      areYouReady()
+    }
+  })
+
+  begin.addEventListener('click', () => {
+    playerLounge.style.display = 'none'
+    begin.style.display = 'none'
+    readInstructions.style.display = 'flex'
+    nameScreen.style.display = 'flex'
+  })
+
+
   startButton.addEventListener('click', () => {
     //change of view
-    space.style.display = 'flex'
+    space.style.display = 'intial'
     scoreElement.style.display = 'flex'
     gunTurrets.style.display = 'flex'
+    playerLounge.style.display = 'none'
+    begin.style.display = 'none'
     //initialisation of grid
     for (let i = 0; i < spaceSize; i++) {
       const cell = document.createElement('div')
@@ -429,8 +471,8 @@ function setupGame() {
             // cells[missileOne].classList.remove('missile') I've moved this line higher to test
             // cells[missileOne].classList.remove('theFirst')
             return potShot()
-          // } else if (laserOne === missileOne) {
-          //   return potShot()
+            // } else if (laserOne === missileOne) {
+            //   return potShot()
           }
           cells[laserOne].classList.add('laser')
           if (laserOne >= ((width ** 2) - width)) {
@@ -456,8 +498,8 @@ function setupGame() {
             // cells[missileOne].classList.remove('missile') I've moved this line higher to test
             // cells[missileOne].classList.remove('theFirst')
             return potShot2()
-          // } else if (laserTwo === missileOne) {
-          //   return potShot2()
+            // } else if (laserTwo === missileOne) {
+            //   return potShot2()
           }
           cells[laserTwo].classList.add('laser')
           if (laserTwo >= ((width ** 2) - width)) {
@@ -482,8 +524,8 @@ function setupGame() {
             // cells[missileOne].classList.remove('missile') I've moved this line higher to test
             // cells[missileOne].classList.remove('theFirst')
             return potShot3()
-          // } else if (laserThree === missileOne) {
-          //   return potShot3()
+            // } else if (laserThree === missileOne) {
+            //   return potShot3()
           }
           cells[laserThree].classList.add('laser')
           if (laserThree >= ((width ** 2) - width)) {

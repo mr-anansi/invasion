@@ -3,17 +3,20 @@
 }
 
 body {
-  align-items: center;
+  /* align-items: center;*/
   display: flex;
   height: 100vh;
-  justify-content: center;
+  /* justify-content: center; */
   margin: 0;
+  background-color: black;
 }
 
 button {
   font-size: 18px;
   padding: 10px;
-  background-color: green;
+  opacity: 0.75;
+  display: none;
+  font-family: 'Teko', sans-serif;
   /* position: absolute;
   z-index: 1; */
 }
@@ -38,6 +41,97 @@ button {
   flex-grow: 1;
   height: 4.761904%;
   width: 4.761904%;
+}
+
+.title-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+  background-image: url('../images/earth-invaders.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: white;
+  text-align: center;
+  font-family: 'Teko', sans-serif;
+}
+
+h1 {
+  font: 6em bold;
+  /* font-family: 'Heebo', sans-serif; */
+  /* font-family: 'Bowlby One SC', cursive; */
+  /* font-family: 'Josefin Sans', sans-serif; */
+  /* font-family: 'Anton', sans-serif; 2nd place */
+  /* font-family: 'Lobster', cursive; */
+  /* font-family: 'Yanone Kaffeesatz', sans-serif; */
+  /* font-family: 'Teko', sans-serif; 3rd place */
+  font-family: 'Bangers', cursive;
+  /* font-family: 'Wallpoet', cursive; score text and graphics */
+  /* font-family: 'Sigmar One', cursive; 2nd place tie */
+}
+
+.title-hero div {
+  font-size: 1.5em;
+  padding: 1rem;
+}
+
+.inspired {
+  padding: 0;
+}
+
+.high-scores {
+  font-family: 'Lobster', cursive;
+  flex-direction: column;
+  align-items: flex-start;
+  /* justify-content: flex-start; */
+  flex-grow: 1;
+  display: none;
+  background-image: url('../images/mosaic-alien-on-wall-1670977.jpg');
+  /* background-repeat: no-repeat; */
+  background-position: center;
+  background-size: 100%;
+}
+
+.instructions {
+  background-color: gray;
+  display: none;
+}
+
+.instructions img {
+  height: 80px;
+  width: 180px;
+}
+
+.high-scores button, .high-scores h2 {
+  margin: 1rem;
+}
+
+.setting-up {
+  padding: 1rem;
+  margin: 1rem;
+  font-family: 'Lobster', cursive;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+  display: none;
+  background-image: url('../images/Edited-Directions-Space_Invaders.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.setting-up h3 {
+  font-size: 2em;
+  color: white;
+  font-family: 'Lobster', cursive;
+}
+
+.score {
+  font-family: 'Wallpoet', cursive;
+  color: white;
 }
 
 #scorecard {
@@ -70,7 +164,7 @@ button {
 
 .laser {
   background-image: url('../images/fireball-gif-transparent.gif');
-  /* background-repeat: no-repeat; */
+  background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
 }
@@ -103,3 +197,45 @@ button {
 	50% { opacity: .1; } 
 	100% { opacity: 1; }
 } 
+
+.game-flash {
+	-webkit-animation: flash linear 1s infinite;
+	animation: flash linear 1s infinite;
+}
+@-webkit-keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+}
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+} 
+
+.fade-in {
+  -webkit-animation: fadein 5s;
+  animation: fadein 6s;
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+/*
+* font-family: 'Heebo', sans-serif;
+* font-family: 'Bowlby One SC', cursive;
+* font-family: 'Josefin Sans', sans-serif;
+* font-family: 'Anton', sans-serif;
+* font-family: 'Lobster', cursive;
+* font-family: 'Yanone Kaffeesatz', sans-serif;
+* font-family: 'Teko', sans-serif;
+* font-family: 'Bangers', cursive;
+* font-family: 'Wallpoet', cursive;
+* font-family: 'Sigmar One', cursive;
+*/
