@@ -4,10 +4,14 @@ function setupGame() {
   const gunTurrets = document.getElementById('lives')
   const heroPanel = document.querySelector('.title-hero')
   const playerLounge = document.querySelector('.high-scores')
-  const begin = document.getElementById('new-game')
+  const loading = document.getElementById('new-game')
   const readInstructions = document.getElementById('open')
   const nameScreen = document.querySelector('.setting-up')
   const instructionsPanel = document.querySelector('.instructions')
+  const enterName = document.querySelector('#usernameField')
+  const leftPanel = document.querySelector('.game-info')
+  const startAgain = document.getElementById('reset')
+  const theWall = document.querySelector('.top-gunners')
 
   // hero to display none
   // inspired
@@ -44,6 +48,8 @@ function setupGame() {
   let noLuck = 0
   let gameOver = false
   let gameLoad = false
+  let userName = ''
+  const forceGet = true
 
 
   //edit functions. refactor it to change the eT array only
@@ -208,6 +214,16 @@ function setupGame() {
     }
   }
 
+  function ranking() {
+    space.style.display = 'none'
+    leftPanel.style.display = 'none'
+    gunTurrets.style.display = 'none'
+    playerLounge.style.display = 'flex'
+    // startAgain.style.display = 'flex'
+    theWall.innerHTML = `You got 'em! Game Over!\n Your score is ${score}`
+
+  }
+
   function amIHit() {
     eT = eT.filter((alien) => {
       return alien !== missileOne
@@ -224,8 +240,8 @@ function setupGame() {
       clearInterval(shell2)
       clearInterval(shell3)
       clearInterval(skyBarrage)
-      weReOutOfHere()
-      alert(`You got 'em! Game Over!\n Your score is ${score}`)
+      ranking()
+      // alert(`You got 'em! Game Over!\n Your score is ${score}`)
     } else {
       clearInterval(bang1)
       setTimeout(() => {
@@ -267,7 +283,8 @@ function setupGame() {
       clearInterval(shell3)
       clearInterval(skyBarrage)
       weReOutOfHere()
-      alert(`Our guns are done!\n Your score is ${score}`)
+      ranking()
+      // alert(`Our guns are done!\n Your score is ${score}`)
     }
   }
 
@@ -293,17 +310,49 @@ function setupGame() {
     })
   }
 
+  function reset() {
+    location.reload(forceGet)
+  }
+
   function areYouReady() {
     // pressEnter.style.display = 'none'
     heroPanel.style.display = 'none'
-    playerLounge.style.display = 'flex'
-    begin.style.display = 'initial'
+    // playerLounge.style.display = 'flex'
+    // loading.style.display = 'initial'
+    readInstructions.style.display = 'flex'
+    nameScreen.style.display = 'flex'
+
 
     // hero to display none
     // inspired
     // h1
     // enter game
   }
+
+  // function whereYouFrom(input){
+  //   userName = input
+  //   console.log(userName)
+  // }
+
+  // function whatYouGot() {
+  //   if (!localStorage.getItem('spaceInvadersGame')) {
+  //     const playersScores = []
+  //     name = userName
+  //     playersScores.push({ name, score })
+  //     localStorage.setItem('spaceInvadersGame', JSON.stringify(playersScores))
+  //   } else {
+  //     const playersScores = JSON.parse(localStorage.getItem('spaceInvadersGame'))
+  //     name = userName
+  //     playersScores.push({ name, score })
+  //     localStorage.setItem('spaceInvadersGame', JSON.stringify(playersScores))
+  //   }
+  //   const scoresArray = JSON.parse(localStorage.getItem('spaceInvadersGame'))
+  //   scoresArray.forEach(player => {
+  //     const child = document.createElement('div')
+  //     child.innerHTML = `${player.name}, ${player.score}`
+  //     document.querySelector('.top-gunners').appendChild(child)
+  //   })  
+  // }
 
 
   document.addEventListener('keydown', (e) => {
@@ -313,21 +362,34 @@ function setupGame() {
     }
   })
 
-  begin.addEventListener('click', () => {
-    playerLounge.style.display = 'none'
-    begin.style.display = 'none'
-    readInstructions.style.display = 'flex'
-    nameScreen.style.display = 'flex'
+  // loading.addEventListener('click', () => {
+  //   playerLounge.style.display = 'none'
+  //   loading.style.display = 'none'
+  //   readInstructions.style.display = 'flex'
+  //   nameScreen.style.display = 'flex'
+  // })
+
+  startAgain.addEventListener('click', () => {
+    reset()
   })
+
+  // enterName.addEventListener('submit', function(e) {
+  //   whereYouFrom(e.value)
+  //   return false
+  // })
 
 
   startButton.addEventListener('click', () => {
     //change of view
-    space.style.display = 'intial'
+    space.style.display = 'flex'
+    leftPanel.style.display = 'block'
     scoreElement.style.display = 'flex'
     gunTurrets.style.display = 'flex'
     playerLounge.style.display = 'none'
-    begin.style.display = 'none'
+    // loading.style.display = 'none'
+    nameScreen.style.display = 'none'
+    
+    
     //initialisation of grid
     for (let i = 0; i < spaceSize; i++) {
       const cell = document.createElement('div')
@@ -462,7 +524,7 @@ function setupGame() {
           cells[laserOne].classList.remove('laser')
           laserOne = laserOne + width
           //new code to evaluate (simulating hit)
-          if (laserOne === turret) {
+          if (laserOne === turret && noLuck === 0) {
             cells[laserOne].classList.add('explosion')
             tooSlow()
             // eT = eT.filter((alien) => {

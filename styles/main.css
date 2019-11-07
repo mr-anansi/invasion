@@ -15,7 +15,7 @@ button {
   font-size: 18px;
   padding: 10px;
   opacity: 0.75;
-  display: none;
+  /* display: none; */
   font-family: 'Teko', sans-serif;
   /* position: absolute;
   z-index: 1; */
@@ -25,7 +25,7 @@ button {
   align-items: center;
   /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
   display: none;
-  flex-grow: 1;
+  flex-grow: 5;
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
@@ -34,13 +34,27 @@ button {
   background-image: url('../images/gif\ space\ galaxy.gif');
   background-position: center;
   background-size: cover;
-  
 }
 
 .space div {
   flex-grow: 1;
   height: 4.761904%;
   width: 4.761904%;
+}
+
+.game-info {
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  display: none;
+  padding: 1em;
+  margin: 1em;
+}
+
+.score {
+  flex-grow: 1;
+  /* border: 0.2em solid white; */
 }
 
 .title-hero {
@@ -72,6 +86,12 @@ h1 {
   /* font-family: 'Sigmar One', cursive; 2nd place tie */
 }
 
+.game-info h1 {
+  color: white;
+  font: 3em bold;
+  font-family: 'Bangers', cursive;
+}
+
 .title-hero div {
   font-size: 1.5em;
   padding: 1rem;
@@ -92,6 +112,8 @@ h1 {
   /* background-repeat: no-repeat; */
   background-position: center;
   background-size: 100%;
+  margin: 1rem;
+  padding: 1rem;
 }
 
 .instructions {
@@ -129,6 +151,11 @@ h1 {
   font-family: 'Lobster', cursive;
 }
 
+input {
+  padding: 0.4em;
+  opacity: 0.8;
+}
+
 .score {
   font-family: 'Wallpoet', cursive;
   color: white;
@@ -144,6 +171,7 @@ h1 {
 
 .turret {
   background-image: url('../images/spaceship-sprite-png-transparent.png');
+  background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
 }
@@ -157,9 +185,9 @@ h1 {
 
 .missile {
   background-image: url('../images/pulsating\ laser\ purple.gif');
+  background-repeat: no-repeat;
   background-position: center;
   background-size: 180%;
-  background-repeat: no-repeat;
 }
 
 .laser {
@@ -171,14 +199,14 @@ h1 {
 
 .explosion {
   background-image: url('../images/Big\ hit\ explosion.gif');
-  /* background-repeat: no-repeat; */
+  background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
 }
 
 .implosion {
   background-image: url('../images/test\ implosion.gif');
-  /* background-repeat: no-repeat; */
+  background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
 }
