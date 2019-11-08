@@ -4,7 +4,7 @@ function setupGame() {
   const gunTurrets = document.getElementById('lives')
   const heroPanel = document.querySelector('.title-hero')
   const playerLounge = document.querySelector('.high-scores')
-  const loading = document.getElementById('new-game')
+  // const loading = document.getElementById('new-game')
   const readInstructions = document.getElementById('open')
   const nameScreen = document.querySelector('.setting-up')
   const instructionsPanel = document.querySelector('.instructions')
@@ -12,6 +12,7 @@ function setupGame() {
   const leftPanel = document.querySelector('.game-info')
   const startAgain = document.getElementById('reset')
   const theWall = document.querySelector('.top-gunners')
+  const doneReading = document.getElementById('close')
 
   // hero to display none
   // inspired
@@ -109,7 +110,8 @@ function setupGame() {
     if (imTheCaptainNow(eT)) {
       clearInterval(invasion)
       clearInterval(bang1)
-      return alert(`The invaders have reached the surface! Game Over\n Your score is ${score}`)
+      ranking()
+      // return alert(`The invaders have reached the surface! Game Over\n Your score is ${score}`)
     }
     return swarm = eT.map(elem => {
       return cells[elem]
@@ -220,8 +222,13 @@ function setupGame() {
     gunTurrets.style.display = 'none'
     playerLounge.style.display = 'flex'
     // startAgain.style.display = 'flex'
-    theWall.innerHTML = `You got 'em! Game Over!\n Your score is ${score}`
-
+    if (life === 0) {
+      theWall.innerHTML = `Our guns are done!\n Your score is ${score}`
+    } else if (imTheCaptainNow(eT)){
+      theWall.innerHTML = `The invaders have reached the surface! Game Over\n Your score is ${score}`
+    } else {
+      theWall.innerHTML = `You got 'em! Game Over!\n Your score is ${score}`
+    }
   }
 
   function amIHit() {
@@ -372,6 +379,15 @@ function setupGame() {
   startAgain.addEventListener('click', () => {
     reset()
   })
+  
+  readInstructions.addEventListener('click', () => {
+    instructionsPanel.style.display = 'flex'
+  })
+  
+  doneReading.addEventListener('click', () => {
+    instructionsPanel.style.display = 'none'
+  })
+
 
   // enterName.addEventListener('submit', function(e) {
   //   whereYouFrom(e.value)
@@ -388,8 +404,8 @@ function setupGame() {
     playerLounge.style.display = 'none'
     // loading.style.display = 'none'
     nameScreen.style.display = 'none'
-    
-    
+
+
     //initialisation of grid
     for (let i = 0; i < spaceSize; i++) {
       const cell = document.createElement('div')
