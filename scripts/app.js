@@ -434,11 +434,6 @@ function setupGame() {
     invasion = setInterval(() => {
       scoreElement.innerHTML = `Score : ${score}`
       gunTurrets.innerHTML = `Lives : ${life}`
-      // cells[eT].classList.remove('theFirst')
-      //end screen conditionals
-      //We're first going to get the swarm to move from side to side and then rework the conditionals on the basis that the outside will not always be an indicator of turnaround.
-      //I've had an idea for the reduction of code...a reduce function could give me a string of the class values to check, add to and remove.
-      //functions could be useful in reworking conditionals. Consider when to refactor after missile.
       if (shouldWeGoRight(eT) && swarm[0].classList.contains('left')) {
         swarm.forEach(div => {
           div.classList.remove('left')
@@ -453,19 +448,11 @@ function setupGame() {
           })
         })
         weReComing()
-        //should this be nested? should I just be dealing with classes here?
         return swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
           })
         })
-        //work on following if logic works
-        //   /*worked above line*/
-        /*
-
-        
-
-        */
       } else if (shouldWeGoLeft(eT) && !swarm[0].classList.contains('left')) {
         swarm.forEach(div => {
           baggage = div.className.split(' ')
@@ -480,8 +467,6 @@ function setupGame() {
         swarm.forEach(div => {
           div.classList.add('left')
         })
-
-        // cells[eT].classList.add('left')
         return swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
@@ -500,7 +485,6 @@ function setupGame() {
           })
         })
         eTMovesLeft()
-
         return swarm.forEach(div => {
           baggage.forEach(classStr => {
             div.classList.add(`${classStr}`)
@@ -530,54 +514,34 @@ function setupGame() {
     //separate these concerns out. There is already a set interval running that can change your values.
     skyBarrage = setInterval(() => {
       enemyFire = spaceGunners(eT)
-      // console.log(enemyFire)
       if (enemyAmmo[0] === 1) {
         enemyAmmo.splice(0, 1)
         laserOne = enemyFire + width
-        // console.log(laserOne)
         cells[laserOne].classList.add('laser')
         shell1 = setInterval(() => {
           cells[laserOne].classList.remove('laser')
           laserOne = laserOne + width
-          //new code to evaluate (simulating hit)
           if (laserOne === turret && noLuck === 0) {
             cells[laserOne].classList.add('explosion')
             tooSlow()
-            // eT = eT.filter((alien) => {
-            //   return alien !== missileOne
-            // })
-            // cells[missileOne].classList.remove('missile') I've moved this line higher to test
-            // cells[missileOne].classList.remove('theFirst')
             return potShot()
-            // } else if (laserOne === missileOne) {
-            //   return potShot()
           }
           cells[laserOne].classList.add('laser')
           if (laserOne >= ((width ** 2) - width)) {
             potShot()
           }
         }, 200)
-        //This following code will be useful for return fire. However for now it is not relevant as player shoots once
       } else if (enemyAmmo[0] === 2) {
         enemyAmmo.splice(0, 1)
         laserTwo = enemyFire + width
-        // console.log(laserTwo)
         cells[laserTwo].classList.add('laser')
         shell2 = setInterval(() => {
           cells[laserTwo].classList.remove('laser')
           laserTwo = laserTwo + width
-          //new code to evaluate (simulating hit)
           if (laserTwo === turret) {
             cells[laserTwo].classList.add('explosion')
             tooSlow()
-            // eT = eT.filter((alien) => {
-            //   return alien !== missileOne
-            // })
-            // cells[missileOne].classList.remove('missile') I've moved this line higher to test
-            // cells[missileOne].classList.remove('theFirst')
             return potShot2()
-            // } else if (laserTwo === missileOne) {
-            //   return potShot2()
           }
           cells[laserTwo].classList.add('laser')
           if (laserTwo >= ((width ** 2) - width)) {
@@ -587,23 +551,14 @@ function setupGame() {
       } else if (enemyAmmo[0] === 3) {
         enemyAmmo.splice(0, 1)
         laserThree = enemyFire + width
-        // console.log(laserThree)
         cells[laserThree].classList.add('laser')
         shell3 = setInterval(() => {
           cells[laserThree].classList.remove('laser')
           laserThree = laserThree + width
-          //new code to evaluate (simulating hit)
           if (laserThree === turret) {
             cells[laserThree].classList.add('explosion')
             tooSlow()
-            // eT = eT.filter((alien) => {
-            //   return alien !== missileOne
-            // })
-            // cells[missileOne].classList.remove('missile') I've moved this line higher to test
-            // cells[missileOne].classList.remove('theFirst')
             return potShot3()
-            // } else if (laserThree === missileOne) {
-            //   return potShot3()
           }
           cells[laserThree].classList.add('laser')
           if (laserThree >= ((width ** 2) - width)) {
@@ -631,26 +586,21 @@ function setupGame() {
           case (37):
           case (65): {
             if (turret === ((width ** 2) - width)) {
-              // console.log(e.keyCode)
-              // console.log(turret)
               return
             }
             cells[turret].classList.remove('turret')
             turret = turret - 1
             cells[turret].classList.add('turret')
-            // console.log(turret)
             break
           }
           case (68):
           case (39): {
             if (turret === ((spaceSize) - 1)) {
-              // console.log(turret)
               return
             }
             cells[turret].classList.remove('turret')
             turret = turret + 1
             cells[turret].classList.add('turret')
-            // console.log(turret)
             break
           }
           //set up missile here
@@ -725,28 +675,28 @@ function setupGame() {
             break
           }
           /*Eliminate this code when you're finished with the mapping of items on the board*/
-          case (38): {
-            if (turret < width) {
-              // console.log(turret)
-              return
-            }
-            cells[turret].classList.remove('turret')
-            turret = turret - width
-            cells[turret].classList.add('turret')
-            // console.log(turret)
-            break
-          }
-          case (40): {
-            if (turret > ((spaceSize) - width - 1)) {
-              // console.log(turret)
-              return
-            }
-            cells[turret].classList.remove('turret')
-            turret = turret + width
-            cells[turret].classList.add('turret')
-            // console.log(turret)
-            break
-          }
+          // case (38): {
+          //   if (turret < width) {
+          //     // console.log(turret)
+          //     return
+          //   }
+          //   cells[turret].classList.remove('turret')
+          //   turret = turret - width
+          //   cells[turret].classList.add('turret')
+          //   // console.log(turret)
+          //   break
+          // }
+          // case (40): {
+          //   if (turret > ((spaceSize) - width - 1)) {
+          //     // console.log(turret)
+          //     return
+          //   }
+          //   cells[turret].classList.remove('turret')
+          //   turret = turret + width
+          //   cells[turret].classList.add('turret')
+          //   // console.log(turret)
+          //   break
+          // }
           /*Eliminate this code when you're finished with the mapping of items on the board*/
         }
       } else return
