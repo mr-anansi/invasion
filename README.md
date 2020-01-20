@@ -1,4 +1,4 @@
-# project-1
+# Project-1-Invasion!
 
 ### Overview
 
@@ -24,6 +24,8 @@ This brief had two main objectives for MVP:
 My Space Invaders project is titled 'Invasion!' and is constructed in a pseudo parody style of media such as 'Aeroplane!'.
 
 The objective of the game is to clear the wave of alien spacecraft attempting to 'invade'. 
+
+![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/home-page.png)
 
 The player controls a spacecraft that is able to move from side to side along the base of the grid.
 
@@ -202,7 +204,11 @@ if (swarm[0].classList.contains('left')) {
 
 ```
 
-Because the alien spaceships were created through an array, the conditionals for movement were created for the left panel through looking at the first item of the array for the class needed to reverse the direction. There was an area of the game in which a bug could be initiated by firing at the first alien in the array just before it was to reach the left side of the grid. The condition for the left side would momentarily be ignored which would shift part of the alien swarm to the right side of the grid, thereby satisfying two conditons and dropping the swarm every interval count! While there was a temptation to leave this in as a form of difficulty or easter egg, it was eventually fixed by replacing the simple condition with a function that checks the whole array.
+Because the alien spaceships were created through an array, the conditionals for movement were created for the left panel through looking at the first item of the array for the class needed to reverse the direction. There was an area of the game in which a bug could be initiated by firing at the first alien in the array just before it was to reach the left side of the grid. The condition for the left side would momentarily be ignored which would shift part of the alien swarm to the right side of the grid, thereby satisfying two conditons and dropping the swarm every interval count! 
+
+![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/early-stage-bugs.png)
+
+While there was a temptation to leave this in as a form of difficulty or easter egg, it was eventually fixed by replacing the simple condition with a function that checks the whole array.
 
 #### Nifty feature
 
@@ -222,15 +228,23 @@ function spaceGunners(array) {
   }
 
 ```
+![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/another-shot.png)
 
-#### Future features
+### Future features
 
+As we had only been introduced to Javascript that same week, I was very excited to get the game working. At this stage my grasp of CSS slowed down my process and I wasn't able to put in the cooler visual elements for the surrounding board.
 
+#### High Scores and Scoreboard upgrade
 
-○ Overview & concept of the project
-○ Technologies used
-○ Approach taken - Thought process & methods of producing it
-○ Snippets of your code and screenshots of your project
-○ Wins and Blockers
-○ Future features
-○ What you have learned (tech & soft skills)
+In the future, the game board could get a revamp and high scores could be inplemented to give the user some replay value. At present, as there is one level and a basic scoring structure, a maximum high score is easily achievable.
+
+![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/game-over-screen.png)
+
+#### Sound Effects
+
+Everybody appreciates the sound of that explosion once a particularly evasive enemy has been hit! A possible future feature is the introduction of sound effects to complete the user experience.
+
+### Lessons Learned
+
+It was great to get a sense of just what can be done through a grasp of the basic concepts of computer languages. Through a logic based approach a playable game was made in limited time. I also learned that styling can take time and thus some time should be allowed for it. I had fun with my function commands, but this was the last time I used functions that could be ambiguous to team members.
+
