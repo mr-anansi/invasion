@@ -246,5 +246,5 @@ Everybody appreciates the sound of that explosion once a particularly evasive en
 
 ### Lessons Learned
 
-It was great to get a sense of just what can be done through a grasp of the basic concepts of computer languages. Through a logic based approach a playable game was made in limited time. I also learned that styling can take time and thus some time should be allowed for it. I had fun with my function commands, but this was the last time I used functions that could be ambiguous to team members.
+It was great to get a sense of just what can be done through a grasp of the basic concepts of computer languages. Through a logic based approach a playable game was made in limited time. I also learned that there are many elements to consider that contribute to the overall user experience past the core engineering. I had fun with my function names which enabled me to jump through my first completed lines of code, however this was the beginning of the end for function names that could be ambiguous to others reading over.
 
