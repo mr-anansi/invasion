@@ -25,7 +25,7 @@ My Space Invaders project is titled 'Invasion!' and is constructed in a pseudo p
 
 The objective of the game is to clear the wave of alien spacecraft attempting to 'invade'. 
 
-![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/home-page.png)
+![](images/Readme-images/home-page.png)
 
 The player controls a spacecraft that is able to move from side to side along the base of the grid.
 
@@ -206,7 +206,7 @@ if (swarm[0].classList.contains('left')) {
 
 Because the alien spaceships were created through an array, the conditionals for movement were created for the left panel through looking at the first item of the array for the class needed to reverse the direction. There was an area of the game in which a bug could be initiated by firing at the first alien in the array just before it was to reach the left side of the grid. The condition for the left side would momentarily be ignored which would shift part of the alien swarm to the right side of the grid, thereby satisfying two conditons and dropping the swarm every interval count! 
 
-![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/early-stage-bugs.png)
+![](images/Readme-images/early-stage-bugs.png)
 
 While there was a temptation to leave this in as a form of difficulty or easter egg, it was eventually fixed by replacing the simple condition with a function that checks the whole array.
 
@@ -228,7 +228,7 @@ function spaceGunners(array) {
   }
 
 ```
-![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/another-shot.png)
+![](images/Readme-images/another-shot.png)
 
 ### Future features
 
@@ -238,7 +238,7 @@ As we had only been introduced to Javascript that same week, I was very excited 
 
 In the future, the game board could get a revamp and high scores could be inplemented to give the user some replay value. At present, as there is one level and a basic scoring structure, a maximum high score is easily achievable.
 
-![](/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/game-over-screen.png)
+![](images/Readme-images/game-over-screen.png)
 
 #### Sound Effects
 
