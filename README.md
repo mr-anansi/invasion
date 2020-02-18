@@ -6,13 +6,15 @@ As a component of the Software Engineering Immersive program we were tasked with
 
 The project was a week in length and we had the choice of a number of briefs that gave an overview of the requirements needed to result in a minimal viable product.
 
-This project was constructed with HTML, CSS and pure Javascript. 
+This project was constructed with HTML, CSS and pure JavaScript.
+
+Check out the game here: [Invasion!](https://reggiemenson.com/invasion) 
 
 ### Brief
 
-I took on the Space Invaders brief as a result of the familiarity with the rules and it's classic status.
+I took on the Space Invaders brief as a result of the familiarity with the rules and its classic status.
 
-The objective of the project was to showcase our practical application of concepts in HTML, CSS and Javascript. As such we were unable to use technologies such as HTML canvas.
+The objective of the project was to showcase our practical application of concepts in HTML, CSS and JavaScript. As such we were unable to use technologies such as HTML canvas.
 
 This brief had two main objectives for MVP:
 
@@ -25,7 +27,7 @@ My Space Invaders project is titled 'Invasion!' and is constructed in a pseudo p
 
 The objective of the game is to clear the wave of alien spacecraft attempting to 'invade'. 
 
-![](images/Readme-images/home-page.png)
+/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/home-page.png
 
 The player controls a spacecraft that is able to move from side to side along the base of the grid.
 
@@ -61,7 +63,7 @@ The thinking for size was as follows:
 	The wave will move through 10 oscillations.
 
 
-As I got to grips with seeing results based logic, I decided to reduce the game to basic steps. My functions were designed to work and satisfy one step at a time. 
+As I got to grips with seeing results-based logic, I decided to reduce the game to basic steps. My functions were designed to work and satisfy one step at a time. 
 
 For example, the player div was designed to obey the rules of the grid. As the grid was essentially a 2D array, if this logic was not in place, the block would be able to move out of its row once a side was reached, or break the code when a div was reached that didnt exist.
 
@@ -206,7 +208,7 @@ if (swarm[0].classList.contains('left')) {
 
 Because the alien spaceships were created through an array, the conditionals for movement were created for the left panel through looking at the first item of the array for the class needed to reverse the direction. There was an area of the game in which a bug could be initiated by firing at the first alien in the array just before it was to reach the left side of the grid. The condition for the left side would momentarily be ignored which would shift part of the alien swarm to the right side of the grid, thereby satisfying two conditons and dropping the swarm every interval count! 
 
-![](images/Readme-images/early-stage-bugs.png)
+/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/early-stage-bugs.png
 
 While there was a temptation to leave this in as a form of difficulty or easter egg, it was eventually fixed by replacing the simple condition with a function that checks the whole array.
 
@@ -228,17 +230,31 @@ function spaceGunners(array) {
   }
 
 ```
-![](images/Readme-images/another-shot.png)
+/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/another-shot.png
+
+### Wins
+
+As this was our first foray into a complete deliverable after a short period covering JavaScript, I was quite pleased in being able to figure out the underlying logic in the opening weekend.
+
+My process was clear, starting small, getting the behaviour I desired based on initial theories and then scaling when a solution was found.
+
+Going through this process gave me confidence in my ability to think through tasks programatically.
+
+### Challenges
+
+After breaking through with the core logic, it was at times difficult to build on it, as bugs would emerge that arose out of the simple approach code blocks.
+
+I also realised that the user experience had not been mapped out from the beginning, which caused me to work backwards and create a limited path.
 
 ### Future features
 
-As we had only been introduced to Javascript that same week, I was very excited to get the game working. At this stage my grasp of CSS slowed down my process and I wasn't able to put in the cooler visual elements for the surrounding board.
+As we had only been introduced to JavaScript that same week, I was very excited to get the game working. At this stage my grasp of CSS slowed down my process and I wasn't able to put in the cooler visual elements for the surrounding board.
 
 #### High Scores and Scoreboard upgrade
 
 In the future, the game board could get a revamp and high scores could be inplemented to give the user some replay value. At present, as there is one level and a basic scoring structure, a maximum high score is easily achievable.
 
-![](images/Readme-images/game-over-screen.png)
+/Users/reggiejnr/development/PROJECT/project-1/images/Readme-images/game-over-screen.png
 
 #### Sound Effects
 
@@ -246,5 +262,5 @@ Everybody appreciates the sound of that explosion once a particularly evasive en
 
 ### Lessons Learned
 
-It was great to get a sense of just what can be done through a grasp of the basic concepts of computer languages. Through a logic based approach a playable game was made in limited time. I also learned that there are many elements to consider that contribute to the overall user experience past the core engineering. I had fun with my function names which enabled me to jump through my first completed lines of code, however this was the beginning of the end for function names that could be ambiguous to others reading over.
+It was great to get a sense of just what can be done through a grasp of the basic concepts of computer languages. Through a logic-based approach, a playable game was made in limited time. I also learned that styling can take time and thus some time should be allowed for it. I had fun with my function commands, but this was one of the last times I used functions that could be ambiguous to team members.
 
