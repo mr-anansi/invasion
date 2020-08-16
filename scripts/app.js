@@ -4,7 +4,6 @@ function setupGame() {
   const gunTurrets = document.getElementById('lives')
   const heroPanel = document.querySelector('.title-hero')
   const playerLounge = document.querySelector('.high-scores')
-  // const loading = document.getElementById('new-game')
   const readInstructions = document.getElementById('open')
   const nameScreen = document.querySelector('.setting-up')
   const instructionsPanel = document.querySelector('.instructions')
@@ -13,10 +12,6 @@ function setupGame() {
   const startAgain = document.getElementById('reset')
   const theWall = document.querySelector('.top-gunners')
   const doneReading = document.getElementById('close')
-
-  // hero to display none
-  // inspired
-  // h1
 
 
   const width = 21
@@ -38,8 +33,6 @@ function setupGame() {
   let laserOne = null
   let laserTwo = null
   let laserThree = null
-  // let missileTwo = null
-  // let missileThree = null
   let ammoCounter = 0
   let score = 0
   let frontline = null
@@ -51,13 +44,6 @@ function setupGame() {
   let gameLoad = false
   let userName = ''
   const forceGet = true
-
-
-  //edit functions. refactor it to change the eT array only
-  //It appears as if I will have to create a function for all alien array alterations so that once the array is empty, the game is over
-  //In order to create a game over condition when the swarm invades, I'll have to use a array method linked to the last row and the contents of the alien array.
-  //in order to create a basic score condition, I'll assign a score increment for every instance of the alien array getting smaller.
-
 
 
   function spaceGunners(array) {
@@ -78,7 +64,6 @@ function setupGame() {
     })
     if (gotcha(eT)) {
       cells[missileOne].classList.remove('theFirst')
-      // amIHit()
     }
     return swarm = eT.map(elem => {
       return cells[elem]
@@ -92,7 +77,6 @@ function setupGame() {
     })
     if (gotcha(eT)) {
       cells[missileOne].classList.remove('theFirst')
-      // amIHit()
     }
     return swarm = eT.map(elem => {
       return cells[elem]
@@ -105,13 +89,11 @@ function setupGame() {
     })
     if (gotcha(eT)) {
       cells[missileOne].classList.remove('theFirst')
-      // amIHit()
     }
     if (imTheCaptainNow(eT)) {
       clearInterval(invasion)
       clearInterval(bang1)
       ranking()
-      // return alert(`The invaders have reached the surface! Game Over\n Your score is ${score}`)
     }
     return swarm = eT.map(elem => {
       return cells[elem]
@@ -132,7 +114,6 @@ function setupGame() {
     clearInterval(shell1)
     if (laserOne === turret) {
       setTimeout(() => {
-        // cells[laserOne].classList.remove('explosion')
         laserOne = null
         enemyAmmo.push(1)
       }, 800)
@@ -149,7 +130,6 @@ function setupGame() {
     clearInterval(shell2)
     if (laserTwo === turret) {
       setTimeout(() => {
-        // cells[laserTwo].classList.remove('explosion')
         laserTwo = null
         enemyAmmo.push(2)
       }, 800)
@@ -166,7 +146,6 @@ function setupGame() {
     clearInterval(shell3)
     if (laserThree === turret) {
       setTimeout(() => {
-        // cells[laserThree].classList.remove('explosion')
         laserThree = null
         enemyAmmo.push(3)
       }, 800)
@@ -178,15 +157,6 @@ function setupGame() {
       }, 100)
     }
   }
-  // function rowZ2() {
-  //   clearInterval(bang2)
-  //   ammoCounter -= 1
-  // }
-
-  // function rowZ3() {
-  //   clearInterval(bang3)
-  //   ammoCounter -= 1
-  // }
 
   function gotcha(array) {
     return array.some((ships) => {
@@ -221,7 +191,6 @@ function setupGame() {
     leftPanel.style.display = 'none'
     gunTurrets.style.display = 'none'
     playerLounge.style.display = 'flex'
-    // startAgain.style.display = 'flex'
     if (life === 0) {
       theWall.innerHTML = `Our guns are done!\n Your score is ${score}`
     } else if (imTheCaptainNow(eT)){
@@ -248,7 +217,6 @@ function setupGame() {
       clearInterval(shell3)
       clearInterval(skyBarrage)
       ranking()
-      // alert(`You got 'em! Game Over!\n Your score is ${score}`)
     } else {
       clearInterval(bang1)
       setTimeout(() => {
@@ -277,7 +245,6 @@ function setupGame() {
       noLuck += 1
       life -= 1
       hamstrung()
-      // cells[turret].classList.remove('explosion')
     } else if (life > 0) return
     if (life === 0) {
       gameOver = true
@@ -291,7 +258,6 @@ function setupGame() {
       clearInterval(skyBarrage)
       weReOutOfHere()
       ranking()
-      // alert(`Our guns are done!\n Your score is ${score}`)
     }
   }
 
@@ -322,45 +288,10 @@ function setupGame() {
   }
 
   function areYouReady() {
-    // pressEnter.style.display = 'none'
     heroPanel.style.display = 'none'
-    // playerLounge.style.display = 'flex'
-    // loading.style.display = 'initial'
     readInstructions.style.display = 'flex'
     nameScreen.style.display = 'flex'
-
-
-    // hero to display none
-    // inspired
-    // h1
-    // enter game
   }
-
-  // function whereYouFrom(input){
-  //   userName = input
-  //   console.log(userName)
-  // }
-
-  // function whatYouGot() {
-  //   if (!localStorage.getItem('spaceInvadersGame')) {
-  //     const playersScores = []
-  //     name = userName
-  //     playersScores.push({ name, score })
-  //     localStorage.setItem('spaceInvadersGame', JSON.stringify(playersScores))
-  //   } else {
-  //     const playersScores = JSON.parse(localStorage.getItem('spaceInvadersGame'))
-  //     name = userName
-  //     playersScores.push({ name, score })
-  //     localStorage.setItem('spaceInvadersGame', JSON.stringify(playersScores))
-  //   }
-  //   const scoresArray = JSON.parse(localStorage.getItem('spaceInvadersGame'))
-  //   scoresArray.forEach(player => {
-  //     const child = document.createElement('div')
-  //     child.innerHTML = `${player.name}, ${player.score}`
-  //     document.querySelector('.top-gunners').appendChild(child)
-  //   })  
-  // }
-
 
   document.addEventListener('keydown', (e) => {
     if (gameLoad === false) {
@@ -368,13 +299,6 @@ function setupGame() {
       areYouReady()
     }
   })
-
-  // loading.addEventListener('click', () => {
-  //   playerLounge.style.display = 'none'
-  //   loading.style.display = 'none'
-  //   readInstructions.style.display = 'flex'
-  //   nameScreen.style.display = 'flex'
-  // })
 
   startAgain.addEventListener('click', () => {
     reset()
@@ -388,13 +312,6 @@ function setupGame() {
     instructionsPanel.style.display = 'none'
   })
 
-
-  // enterName.addEventListener('submit', function(e) {
-  //   whereYouFrom(e.value)
-  //   return false
-  // })
-
-
   startButton.addEventListener('click', () => {
     //change of view
     space.style.display = 'flex'
@@ -402,7 +319,6 @@ function setupGame() {
     scoreElement.style.display = 'flex'
     gunTurrets.style.display = 'flex'
     playerLounge.style.display = 'none'
-    // loading.style.display = 'none'
     nameScreen.style.display = 'none'
 
 
@@ -427,9 +343,7 @@ function setupGame() {
       div.classList.add('left')
     })
 
-
-    //intial thoughts on the multiple class change is that it will not add the correct syntax for multiple class adds. in fact, i've already tried this 
-    //without a variable name. use a  forEach
+    //uses a forEach to carry mutiple classes along and filters attack and effect classes on each change
 
     invasion = setInterval(() => {
       scoreElement.innerHTML = `Score : ${score}`
@@ -510,8 +424,8 @@ function setupGame() {
 
     }, 800)
 
-    //I'm currently building out a method for return fire using a randomiser from the bottom row of the swarm. Finish work on this tomorrow morning.
-    //separate these concerns out. There is already a set interval running that can change your values.
+    // A randomiser function generates start positions for the lasers. Intervals are restricted 
+    // from creation by pushing array values in and out.
     skyBarrage = setInterval(() => {
       enemyFire = spaceGunners(eT)
       if (enemyAmmo[0] === 1) {
@@ -569,16 +483,6 @@ function setupGame() {
     }, 1000)
 
 
-
-
-    //this is an array example with an event listener
-    // player.forEach(beat => {
-    //   beat.addEventListener('click', (e) => {
-    //     audio.src = e.target.value
-    //     audio.play()
-    //   })
-    // })
-
     // ==============================Movement ==============================================================
     document.onkeydown = function (e) {
       if (noLuck === 0 && gameOver === false) {
@@ -618,7 +522,6 @@ function setupGame() {
         */
 
           case (32): {
-            //make sure you change all names as we go. also change the interval names. also add way to reduce ammo counter (reduce by one)
             if (ammoCounter === 0) {
               ammoCounter += 1
               missileOne = turret - width
@@ -631,73 +534,15 @@ function setupGame() {
                   cells[missileOne].classList.add('implosion')
                   console.log(missileOne)
                   return amIHit()
-                  // eT = eT.filter((alien) => {
-                  //   return alien !== missileOne
-                  // })
-                  // cells[missileOne].classList.remove('missile')
-                  // cells[missileOne].classList.remove('theFirst')
                 }
                 cells[missileOne].classList.add('missile')
                 if (missileOne < width) {
                   rowZ1()
                 }
               }, 80)
-              //This following code will be useful for return fire. However for now it is not relevant as player shoots once
-              // } else if (ammoCounter === 1) {
-              //   ammoCounter += 1
-              //   missileTwo = turret - width
-              //   cells[missileTwo].classList.add('missile')
-              //   bang2 = setInterval(() => {
-              //     console.log(missileTwo)
-              //     cells[missileTwo].classList.remove('missile')
-              //     missileTwo = missileTwo - width
-              //     cells[missileTwo].classList.add('missile')
-              //     if (missileTwo < width) {
-              //       cells[missileTwo].classList.remove('missile')
-              //       rowZ2()
-              //     }
-              //   }, 200)
-              // } else if (ammoCounter === 2) {
-              //   ammoCounter += 1
-              //   missileThree = turret - width
-              //   cells[missileThree].classList.add('missile')
-              //   bang3 = setInterval(() => {
-              //     console.log(missileThree)
-              //     cells[missileThree].classList.remove('missile')
-              //     missileThree = missileThree - width
-              //     cells[missileThree].classList.add('missile')
-              //     if (missileThree < width) {
-              //       cells[missileThree].classList.remove('missile')
-              //       rowZ3()
-              //     }
-              //   }, 200)
             } else return
             break
           }
-          /*Eliminate this code when you're finished with the mapping of items on the board*/
-          // case (38): {
-          //   if (turret < width) {
-          //     // console.log(turret)
-          //     return
-          //   }
-          //   cells[turret].classList.remove('turret')
-          //   turret = turret - width
-          //   cells[turret].classList.add('turret')
-          //   // console.log(turret)
-          //   break
-          // }
-          // case (40): {
-          //   if (turret > ((spaceSize) - width - 1)) {
-          //     // console.log(turret)
-          //     return
-          //   }
-          //   cells[turret].classList.remove('turret')
-          //   turret = turret + width
-          //   cells[turret].classList.add('turret')
-          //   // console.log(turret)
-          //   break
-          // }
-          /*Eliminate this code when you're finished with the mapping of items on the board*/
         }
       } else return
     }

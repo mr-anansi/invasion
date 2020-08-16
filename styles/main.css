@@ -3,10 +3,8 @@
 }
 
 body {
-  /* align-items: center;*/
   display: flex;
   height: 100vh;
-  /* justify-content: center; */
   margin: 0;
   background-color: black;
 }
@@ -15,16 +13,12 @@ button {
   font-size: 18px;
   padding: 10px;
   opacity: 0.75;
-  /* display: none; */
   font-family: 'Teko', sans-serif;
-  /* position: absolute;
-  z-index: 1; */
   border: none;
 }
 
 .space {
   align-items: center;
-  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
   display: none;
   flex-grow: 5;
   flex-wrap: wrap;
@@ -56,7 +50,6 @@ button {
 
 .score {
   flex-grow: 1;
-  /* border: 0.2em solid white; */
 }
 
 .title-hero {
@@ -76,16 +69,7 @@ button {
 
 h1 {
   font: 6em bold;
-  /* font-family: 'Heebo', sans-serif; */
-  /* font-family: 'Bowlby One SC', cursive; */
-  /* font-family: 'Josefin Sans', sans-serif; */
-  /* font-family: 'Anton', sans-serif; 2nd place */
-  /* font-family: 'Lobster', cursive; */
-  /* font-family: 'Yanone Kaffeesatz', sans-serif; */
-  /* font-family: 'Teko', sans-serif; 3rd place */
   font-family: 'Bangers', cursive;
-  /* font-family: 'Wallpoet', cursive; score text and graphics */
-  /* font-family: 'Sigmar One', cursive; 2nd place tie */
 }
 
 .game-info h1 {
@@ -111,7 +95,6 @@ h1 {
   flex-grow: 1;
   display: none;
   background-image: url('../images/mosaic-alien-on-wall-1670977.jpg');
-  /* background-repeat: no-repeat; */
   background-position: center;
   background-size: 100%;
   font-size: 3rem;
@@ -290,18 +273,6 @@ input {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-/*
-* font-family: 'Heebo', sans-serif;
-* font-family: 'Bowlby One SC', cursive;
-* font-family: 'Josefin Sans', sans-serif;
-* font-family: 'Anton', sans-serif;
-* font-family: 'Lobster', cursive;
-* font-family: 'Yanone Kaffeesatz', sans-serif;
-* font-family: 'Teko', sans-serif;
-* font-family: 'Bangers', cursive;
-* font-family: 'Wallpoet', cursive;
-* font-family: 'Sigmar One', cursive;
-*/
 
 #start-button:hover {
   background-color: #4285f4;
